@@ -14,41 +14,41 @@ static BUFFER_SIZE: Lazy<usize> = Lazy::new(|| argh::from_env::<crate::BinArgs>(
 ///
 /// During the purge, `ENTRIES` is locked and the current thread will block.
 fn purge_old(entries: &mut LinkedHashMap<String, Bytes>) {
-    if entries.len() > *BUFFER_SIZE {
-        let to_remove = entries.len() - *BUFFER_SIZE;
+	if entries.len() > *BUFFER_SIZE {
+		let to_remove = entries.len() - *BUFFER_SIZE;
 
-        for _ in 0..to_remove {
-            entries.pop_front();
-        }
-    }
+		for _ in 0..to_remove {
+			entries.pop_front();
+		}
+	}
 }
 
 /// Generates a 'pronounceable' random ID using gpw
 pub fn generate_id() -> String {
-    thread_local!(static KEYGEN: RefCell<gpw::PasswordGenerator> = RefCell::new(gpw::PasswordGenerator::default()));
+	thread_local!(static KEYGEN: RefCell<gpw::PasswordGenerator> = RefCell::new(gpw::PasswordGenerator::default()));
 
-    KEYGEN.with(|k| k.borrow_mut().next()).unwrap_or_else(|| {
-        thread_rng()
-            .sample_iter(&Alphanumeric)
-            .take(6)
-            .map(char::from)
-            .collect()
-    })
+	KEYGEN.with(|k| k.borrow_mut().next()).unwrap_or_else(|| {
+		thread_rng()
+			.sample_iter(&Alphanumeric)
+			.take(6)
+			.map(char::from)
+			.collect()
+	})
 }
 
 /// Stores a paste under the given id
 pub fn store_paste(entries: &PasteStore, id: String, content: Bytes) {
-    let mut entries = entries.write();
+	let mut entries = entries.write();
 
-    purge_old(&mut entries);
+	purge_old(&mut entries);
 
-    entries.insert(id, content);
+	entries.insert(id, content);
 }
 
 /// Get a paste by id.
 ///
 /// Returns `None` if the paste doesn't exist.
 pub fn get_paste(entries: &PasteStore, id: &str) -> Option<Bytes> {
-    // need to box the guard until owning_ref understands Pin is a stable address
-    entries.read().get(id).map(Bytes::clone)
+	// need to box the guard until owning_ref understands Pin is a stable address
+	entries.read().get(id).map(Bytes::clone)
 }

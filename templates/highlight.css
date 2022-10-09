@@ -3,149 +3,157 @@
  */
 
 .code {
- color: #dcdfe4;
- background-color: #282c34;
+	color: #dcdfe4;
+	background-color: #282c34;
 }
 
 .comment {
- color: #5c6370;
+	color: #5c6370;
 }
 .variable.parameter.function {
- color: #dcdfe4;
+	color: #dcdfe4;
 }
 .keyword {
- color: #c678dd;
+	color: #c678dd;
 }
 .variable {
- color: #e06c75;
+	color: #e06c75;
 }
-.entity.name.function, .meta.require, .support.function.any-method {
- color: #61afef;
+.entity.name.function,
+.meta.require,
+.support.function.any-method {
+	color: #61afef;
 }
-.support.class, .entity.name.class, .entity.name.type.class {
- color: #e5c07b;
+.support.class,
+.entity.name.class,
+.entity.name.type.class {
+	color: #e5c07b;
 }
 .meta.class {
- color: #e5c07b;
+	color: #e5c07b;
 }
 .keyword.other.special-method {
- color: #61afef;
+	color: #61afef;
 }
 .storage {
- color: #c678dd;
+	color: #c678dd;
 }
 .support.function {
- color: #61afef;
+	color: #61afef;
 }
 .string {
- color: #98c379;
+	color: #98c379;
 }
 .constant.numeric {
- color: #e5c07b;
+	color: #e5c07b;
 }
 .none {
- color: #e5c07b;
+	color: #e5c07b;
 }
 .none {
- color: #e5c07b;
+	color: #e5c07b;
 }
 .constant {
- color: #e5c07b;
+	color: #e5c07b;
 }
 .entity.name.tag {
- color: #e06c75;
+	color: #e06c75;
 }
 .entity.other.attribute-name {
- color: #e5c07b;
+	color: #e5c07b;
 }
-.entity.other.attribute-name.id, .punctuation.definition.entity {
- color: #e5c07b;
+.entity.other.attribute-name.id,
+.punctuation.definition.entity {
+	color: #e5c07b;
 }
 .meta.selector {
- color: #c678dd;
+	color: #c678dd;
 }
-.markup.heading .punctuation.definition.heading, .entity.name.section {
- color: #61afef;
+.markup.heading .punctuation.definition.heading,
+.entity.name.section {
+	color: #61afef;
 }
-.markup.bold, .punctuation.definition.bold {
- color: #c678dd;
+.markup.bold,
+.punctuation.definition.bold {
+	color: #c678dd;
 }
-.markup.italic, .punctuation.definition.italic {
- color: #c678dd;
+.markup.italic,
+.punctuation.definition.italic {
+	color: #c678dd;
 }
 .markup.raw.inline {
- color: #98c379;
+	color: #98c379;
 }
 .meta.link {
- color: #98c379;
+	color: #98c379;
 }
 .markup.quote {
- color: #98c379;
+	color: #98c379;
 }
 .source.java .meta.class.java .meta.method.java {
- color: #dcdfe4;
+	color: #dcdfe4;
 }
 .source.java .meta.class.java .meta.class.body.java {
- color: #dcdfe4;
+	color: #dcdfe4;
 }
 .source.js .meta.function.js .variable.parameter.function.js {
- color: #e06c75;
+	color: #e06c75;
 }
 .source.js .variable.other.readwrite.js {
- color: #e06c75;
+	color: #e06c75;
 }
 .source.js .variable.other.object.js {
- color: #dcdfe4;
+	color: #dcdfe4;
 }
 .source.js .meta.function-call.method.js .variable.other.readwrite.js {
- color: #e06c75;
+	color: #e06c75;
 }
 .source.js .meta.block.js .variable.other.readwrite.js {
- color: #e06c75;
+	color: #e06c75;
 }
 .source.js .meta.block.js .variable.other.object.js {
- color: #dcdfe4;
+	color: #dcdfe4;
 }
 .source.js .meta.block.js .meta.function-call.method.js .variable.other.readwrite.js {
- color: #dcdfe4;
+	color: #dcdfe4;
 }
 .source.js .meta.function-call.method.js .variable.function.js {
- color: #dcdfe4;
+	color: #dcdfe4;
 }
 .source.js .meta.property.object.js .entity.name.function.js {
- color: #61afef;
+	color: #61afef;
 }
 .source.js .support.constant.prototype.js {
- color: #dcdfe4;
+	color: #dcdfe4;
 }
 .markup.inserted {
- color: #98c379;
+	color: #98c379;
 }
 .markup.deleted {
- color: #e06c75;
+	color: #e06c75;
 }
 .markup.changed {
- color: #e5c07b;
+	color: #e5c07b;
 }
 .string.regexp {
- color: #98c379;
+	color: #98c379;
 }
 .constant.character.escape {
- color: #56b6c2;
+	color: #56b6c2;
 }
 .invalid.illegal {
- color: #dcdfe4;
- background-color: #e06c75;
+	color: #dcdfe4;
+	background-color: #e06c75;
 }
 .invalid.broken {
- color: #dcdfe4;
- background-color: #e5c07b;
+	color: #dcdfe4;
+	background-color: #e5c07b;
 }
 .invalid.deprecated {
- color: #dcdfe4;
- background-color: #e5c07b;
+	color: #dcdfe4;
+	background-color: #e5c07b;
 }
 .invalid.unimplemented {
- color: #dcdfe4;
- background-color: #c678dd;
+	color: #dcdfe4;
+	background-color: #c678dd;
 }
