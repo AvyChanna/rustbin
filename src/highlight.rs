@@ -20,7 +20,7 @@ pub fn highlight(content: &str, ext: &str) -> Option<String> {
         let mut html_generator =
             ClassedHTMLGenerator::new_with_class_style(syntax, ss, ClassStyle::Spaced);
         for line in LinesWithEndings(content.trim()) {
-            html_generator.parse_html_for_line_which_includes_newline(line);
+            _ = html_generator.parse_html_for_line_which_includes_newline(line);
         }
         Some(html_generator.finalize())
     })

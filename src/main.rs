@@ -55,6 +55,12 @@ async fn main() -> std::io::Result<()> {
 
     let store = Data::new(PasteStore::default());
 
+    let num_workers = if num_cpus::get_physical() >= 2 {
+        num_cpus::get_physical() / 2
+    } else {
+        1
+    };
+
     let server = HttpServer::new({
         let args = args.clone();
 
@@ -69,6 +75,10 @@ async fn main() -> std::io::Result<()> {
                 .route("/", web::put().to(submit_raw))
                 .route("/", web::head().to(HttpResponse::MethodNotAllowed))
                 .route("/highlight.css", web::get().to(highlight_css))
+                .route("/raw/{paste}", web::get().to(show_raw_paste))
+				.route("/raw/{paste}", web::head().to(HttpResponse::MethodNotAllowed))
+                .route("/url/{paste}", web::get().to(redirect_to_url))
+				.route("/url/{paste}", web::head().to(HttpResponse::MethodNotAllowed))
                 .route("/{paste}", web::get().to(show_paste))
                 .route("/{paste}", web::head().to(HttpResponse::MethodNotAllowed))
                 .default_service(web::to(|req: HttpRequest| async move {
@@ -76,11 +86,40 @@ async fn main() -> std::io::Result<()> {
                     HttpResponse::from_error(NotFound)
                 }))
         }
-    });
+    })
+    .workers(num_workers);
 
     info!("Listening on http://{}", args.bind_addr);
 
     server.bind(args.bind_addr)?.run().await
+}
+
+async fn show_raw_paste(
+    key: actix_web::web::Path<String>,
+    store: Data<PasteStore>,
+) -> Result<HttpResponse, Error> {
+    let mut splitter = key.splitn(2, '.');
+    let key = splitter.next().unwrap();
+
+    let entry = get_paste(&store, key).ok_or(NotFound)?;
+
+    Ok(HttpResponse::Ok()
+        .content_type("text/plain; charset=utf-8")
+        .body(entry))
+}
+
+async fn redirect_to_url(
+    key: actix_web::web::Path<String>,
+    store: Data<PasteStore>,
+) -> Result<HttpResponse, Error> {
+    let mut splitter = key.splitn(2, '.');
+    let key = splitter.next().unwrap();
+
+    let entry = get_paste(&store, key).ok_or(NotFound)?;
+
+    Ok(HttpResponse::Found()
+        .append_header((header::LOCATION, entry))
+        .finish())
 }
 
 #[derive(Template)]
@@ -150,7 +189,7 @@ async fn show_paste(
         let code_highlighted = match ext {
             Some(extension) => match highlight(data, extension) {
                 Some(html) => html,
-                None => return Err(NotFound.into()),
+                None => htmlescape::encode_minimal(data),
             },
             None => htmlescape::encode_minimal(data),
         };
@@ -170,10 +209,10 @@ async fn show_paste(
 async fn highlight_css() -> HttpResponse {
     static CSS: Lazy<Bytes> = Lazy::new(|| {
         highlight::BAT_ASSETS.with(|s| {
-            Bytes::from(css_for_theme_with_class_style(
-                s.get_theme("OneHalfDark"),
-                ClassStyle::Spaced,
-            ))
+            Bytes::from(
+                css_for_theme_with_class_style(s.get_theme("OneHalfDark"), ClassStyle::Spaced)
+                    .unwrap_or(include_str!("../templates/highlight.css").to_string()),
+            )
         })
     });
 
