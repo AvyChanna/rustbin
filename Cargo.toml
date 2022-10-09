@@ -1,10 +1,10 @@
 [package]
 name = "bin"
 version = "2.0.0"
-description = "a paste bin."
-repository = "https://github.com/w4/bin"
+description = "a pastebin/url-shortener/filestore/whatever"
+repository = "https://github.com/AvyChanna/bin"
 license = "WTFPL OR 0BSD"
-authors = ["Jordan Doyle <jordan@doyle.la>"]
+authors = ["Jordan Doyle <jordan@doyle.la>", "AvyChanna"]
 edition = "2021"
 
 [dependencies]
@@ -31,9 +31,3 @@ futures = "0.3"
 lto = true
 codegen-units = 1
 incremental = false
-
-[badges]
-travis-ci = { repository = "w4/bin" }
-is-it-maintained-issue-resolution = { repository = "w4/bin" }
-is-it-maintained-open-issues = { repository = "w4/bin" }
-maintenance = { status = "passively-maintained" }
